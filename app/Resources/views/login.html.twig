@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}RepoCode::Logowanie{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Strona logowania">
+        <meta name=”keywords” content="logowanie repozytorium kod programowanie"/>
+        <meta name="author" content="Jakub Książek">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+        <!-- Google Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                {% block header %}
+                    <div class="panel-heading">
+                        <div class="panel-title text-center">
+                            <h1 class="title">RepoCode</h1>
+                            <hr />
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block body %}
+                    <div class="main-login main-center">
+                        {% for flash_message in app.session.flashBag.get('success') %}
+                            <div class="alert alert-success alert-dismissible" style="margin: 0px -30px 30px">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% if error %}
+                            <div class="alert alert-danger alert-dismissible" style="margin: 0px -30px 30px">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                {#{{ error.messageKey }}#}
+                                Wpisano niepoprawne dane.
+                            </div>
+                        {% endif %}
+                        <form class="form-horizontal" action="{{ path('login') }}" method="post">
+                            <div class="form-group">
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                                        <input type="text" class="form-control" id="username" placeholder="Wpisz swój adres email"
+                                               name="_username" value="{{ last_username }}" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                                        <input id="password" class="form-control" placeholder="Wpisz swoje hasło"
+                                               name="_password" type="password" value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            {#<div class="checkbox">
+                                <label>
+                                    <input name="_remember_me" type="checkbox" checked>Zapamiętaj mnie
+                                </label>
+                            </div>#}
+
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zaloguj się</button>
+                            </div>
+                            <div class="login-register">
+                                <a href="{{ path('registration') }}">Załóż konto</a>
+                            </div>
+                        </form>
+                    </div>
+                {% endblock %}
+
+                {% block javascripts %}
+                    <script src="{{ asset('js/jquery.min.js') }}"></script>
+                    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

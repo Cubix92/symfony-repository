@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% import "partials/macro/table.html.twig" as table %}
+
+{% block title %}RepoCode::Notatki{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% include 'partials/messages.html.twig' %}
+
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <h1>Lista notatek
+                    <a class="btn btn-success pull-right" href="{{ path('note_new') }}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj
+                    </a>
+                </h1>
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Strona główna</a></li>
+                    <li class="breadcrumb-item active">Notatki</li>
+                </ol>
+            </div>
+        </div>
+
+        {% if notes or app.request.query.count() %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="text-uppercase">Wyszukiwarka</span>
+                    <a class="pull-right" data-toggle="collapse" href="#collapse-search" aria-expanded="false"
+                       aria-controls="collapse-search">
+                        {% if app.request.query.count() %}
+                            <span class="glyphicon glyphicon-collapse glyphicon-collapse-up" aria-hidden="true"
+                                  style="font-size: 20px;"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-collapse glyphicon-collapse-down" aria-hidden="true"
+                                  style="font-size: 20px;"></span>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="panel-body collapse {% if app.request.query.count() %}in{% endif %}" id="collapse-search">
+                    <form class="form-horizontal" method="GET">
+                        <div class="form-group">
+                            <label for="category" class="col-sm-1 control-label">Kategoria</label>
+                            <div class="col-sm-3">
+                                <select name="category" class="form-control">
+                                    <option value="">Wszystkie</option>
+                                    {% for category in categories %}
+                                        <option {% if category.id == app.request.query.get('category') %}selected="selected"{% endif %}
+                                                value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <label for="title" class="col-sm-1 control-label">Tytuł</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="title"
+                                       value="{{ app.request.query.get('title') }}">
+                            </div>
+
+                            <label for="tags" class="col-sm-1 control-label">Tagi</label>
+                            <div class="col-sm-3">
+                                <select name="tags" class="form-control">
+                                    <option value="">Wszystkie</option>
+                                    {% for tag in tags %}
+                                        <option {% if tag.id == app.request.query.get('tags') %}selected="selected"{% endif %}
+                                                value="{{ tag.id }}">{{ tag.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group pull-right">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="sort" value="{{ app.request.query.get('sort') }}"/>
+                                <button type="submit" class="btn btn-primary">Szukaj</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% if notes %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordred table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 40px;">{{ table.sort("Id", "id") }}</th>
+                                <th>{{ table.sort("Tytuł", "title") }}</th>
+                                <th>{{ table.sort("Kategoria", "category") }}</th>
+                                <th style="width: 60px;">Edycja</th>
+                                <th style="width: 60px;">Usuwanie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for note in notes %}
+                                <tr>
+                                    <td>{{ note.id }}</td>
+                                    <td>{{ note.title }}</td>
+                                    <td>{{ note.category.name }}</td>
+                                    <td>
+                                        <p data-placement="top" data-toggle="tooltip" title="Edytuj">
+                                            <a href="{{ path('note_edit', { 'id': note.id }) }}"
+                                               class="btn btn-primary btn-xs">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p data-placement="top" data-toggle="tooltip" title="Usuń">
+                                            <a href="{{ path('note_delete', { 'id': note.id }) }}"
+                                               class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    Nie znaleziono żadnych rekordów pasujących do wybranych kryteriów wyszukiwania.
+                </div>
+            {% endif %}
+
+            {{ table.pagination(page, total, "note_index") }}
+        {% else %}
+            <div class="alert alert-info">
+                Żadna notatka nie została jeszcze dodana.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.collapse').on('shown.bs.collapse', function () {
+            $(".glyphicon-collapse").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
+        });
+
+        $('.collapse').on('hidden.bs.collapse', function () {
+            $(".glyphicon-collapse").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
+        });
+    </script>
+{% endblock %}

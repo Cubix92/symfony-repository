@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}RepoCode{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name=”keywords” content="logowanie repozytorium kod programowanie"/>
+    <meta name="author" content="Jakub Książek">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}"/>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--></head>
+
+<body>
+    {% block navigation %}
+        <nav id="custom-bootstrap-menu" class="navbar navbar-default ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="{% if app.request.requestUri == path('homepage') %}active {% endif %}navbar-brand" href="{{ path('homepage') }}">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: rgba(255, 255, 255, 1);"></span>
+                    </a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-menubuilder">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse navbar-menubuilder">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li {% if path('note_index') in app.request.requestUri %}class="active"{% endif %}>
+                            <a href="{{ path('note_index') }}">Notatki</a>
+                        </li>
+                        <li {% if path('category_index') in app.request.requestUri %}class="active"{% endif %}>
+                            <a href="{{ path('category_index') }}">Kategorie</a>
+                        </li>
+                        <li {% if path('tag_index') in app.request.requestUri %}class="active"{% endif %}>
+                            <a href="{{ path('tag_index') }}">Tagi</a>
+                        </li>
+                        <li {% if path('logs') in app.request.requestUri %}class="active"{% endif %}>
+                            <a href="{{ path('logs') }}">Logi</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{{ path('logout') }}">Wyloguj</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+
+    {% block footer %}
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">© {{ "now"|date("Y") }} Jakub Ksiązek</p>
+            </div>
+        </footer>
+    {% endblock %}
+</body>
+
+</html>

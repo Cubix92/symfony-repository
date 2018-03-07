@@ -1,0 +1,253 @@
+/* GENERAL STYLE */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
+body{
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow: scroll;
+}
+
+a:focus {
+    outline-style: none;
+}
+
+/* NAVBAR STYLE */
+.navbar {
+    text-transform: uppercase;
+}
+
+.navbar-header a.active {
+    background-color: rgba(82, 103, 115, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.navbar-header a.navbar-brand:hover {
+    background-color: rgba(82, 103, 115, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(82, 103, 115, 1);
+}
+
+#custom-bootstrap-menu.navbar-default {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 0px;
+    border:1px solid #AAA;
+    border-bottom: 0px;
+    margin-top:0px;
+    overflow:hidden;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: 'Roboto', sans-serif;
+    -webkit-transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(82, 103, 115, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(82, 103, 115, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #526773;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #526773;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #526773;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #000000;
+}
+
+.container:not(.copy-area) {
+    margin-top: 60px;
+}
+
+/* TABS STYLES */
+
+.card .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+.card .nav-tabs > li > a { border: none; color: #666; }
+.card .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
+.card .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+.card .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+.card .tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+.card .tab-pane { padding: 15px 0; }
+.card .tab-content{padding:20px}
+.card { margin-bottom: 30px; margin-top: 30px; }
+
+/* CARD STYLE */
+table p{
+    font-family: 'Roboto', sans-serif;
+    text-align:center;
+}
+
+a, button {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+
+a:focus, button:focus {
+    outline: none !important;
+}
+
+/* FOOTER STYLES */
+.footer {
+    background-color: #f5f5f5;
+    height: 60px;
+    width: 100%;
+}
+
+.footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.container .text-muted {
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 20px;
+}
+
+/* UTILITY STYLES */
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.margin-right-30 {
+    margin-right: 30px;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-left-30 {
+    margin-left: 30px;
+}
+
+/* BREADCRUMBS STYLES */
+.breadcrumb {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.breadcrumb .breadcrumb-item {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+/* COPY STYLES */
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
+
+.copy-area.container textarea {
+    border: none;
+    cursor: pointer;
+    background-color: #e6e6e6;
+    resize: none;
+    width: 650px;
+    padding: 12px;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+
+.copy-area.container .row {
+    margin: 12px 0px;
+}
+
+.copy-area.container .alert {
+    margin-top: 36px;
+}
+
+.copy-area.container h3 {
+    margin-top: 0px;
+}
+
+/* SORTABLE STYLES */
+.sortable, .sortable:hover {
+    bottom: 2px;
+    position: relative;
+    color: gray;
+    text-decoration: none;
+}
+
+.sortable.active {
+    color: black;
+}
+
+/* FIX STYLES*/
+
+body > .container {
+    min-height: 480px;
+}
+
+.alert {
+    margin-top: 20px;
+}
+
+.table > thead > tr > th {
+    padding: 6px;
+}

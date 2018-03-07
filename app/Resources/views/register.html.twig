@@ -1,0 +1,62 @@
+{% extends 'login.html.twig' %}
+
+{% block title %}RepoCode::Rejestracja{% endblock %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+    <div class="main-login main-center">
+        {{ form_start(form) }}
+            <div class="form-group {% if not form.name.vars.valid %}has-error{% endif %}">
+                <label for="name" class="cols-sm-2 control-label">{{ form_label(form.name) }}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                        {{ form_widget(form.name) }}
+                    </div>
+                </div>
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="form-group {% if not form.email.vars.valid %}has-error{% endif %}">
+                <label for="name" class="cols-sm-2 control-label">{{ form_label(form.email) }}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-group {% if not form.password.first.vars.valid %}has-error{% endif %}">
+                <label for="name" class="cols-sm-2 control-label">{{ form_label(form.password.first) }}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                        {{ form_widget(form.password.first) }}
+                    </div>
+                </div>
+                {{ form_errors(form.password.first) }}
+            </div>
+
+            <div class="form-group {% if not form.password.second.vars.valid %}has-error{% endif %}">
+                <label for="name" class="cols-sm-2 control-label">{{ form_label(form.password.second) }}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                        {{ form_widget(form.password.second) }}
+                    </div>
+                </div>
+                {{ form_errors(form.password.second) }}
+            </div>
+
+            <div class="form-group ">
+                {{ form_widget(form.save) }}
+            </div>
+            <div class="login-register">
+                <a href="{{ path('login') }}">Wróć do strony logowania</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

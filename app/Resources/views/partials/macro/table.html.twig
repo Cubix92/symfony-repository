@@ -1,0 +1,39 @@
+{% macro sort(name, column, default = false, class = "sortable") %}
+    {% if app.request.query.get('sort') == column ~ ".asc" %}
+        {{ name }} <a class="{{ class }} active" href="{{ app.request.query.all|querystring({"sort": column ~ ".desc"}) }}">&#x25bc;</a>
+    {% elseif app.request.query.get('sort') == column ~ ".desc" %}
+        {{ name }} <a class="{{ class }} active" href="{{ app.request.query.all|querystring({"sort": column ~ ".asc"}) }}">&#x25b2;</a>
+    {% else %}
+        {{ name }} <a class="{{ class }}" href="{{ app.request.query.all|querystring({"sort": column ~ ".asc"}) }}">&#x25b2;</a>
+    {% endif %}
+{% endmacro %}
+
+{% macro pagination(page, total) %}
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination pull-right">
+                {% set pages = (total / 10)|ceil %}
+
+                <li {% if page == 1 %}class="disabled"{% endif %}>
+                    <a {% if page != 1 %}href="{{ path(app.request.attributes.get('_route'), {page: page-1, sort: app.request.query.get('sort')}) }}"{% endif %}>
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </li>
+
+                {% for i in 1..pages %}
+                    <li {% if page == loop.index %}class="active"{% endif %}>
+                        <a href="{{ path(app.request.attributes.get('_route'), {page: i, sort: app.request.query.get('sort') }) }}">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+                <li {% if page == pages %}class="disabled"{% endif %}>
+                    <a {% if page != pages %}href="{{ path(app.request.attributes.get('_route'), {page: page+1, sort: app.request.query.get('sort')}) }}"{% endif %}>
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepoCode::Kategorie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <h1>Szczegóły kategorii
+                    <a class="btn btn-danger pull-right" href="{{ path('category_delete', {id: category.id}) }}">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Usuń
+                    </a>
+                    <a class="btn btn-primary pull-right margin-right-20" href="{{ path('category_edit', {id: category.id}) }}">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edytuj
+                    </a>
+                </h1>
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Strona główna</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('category_index') }}">Kategorie</a></li>
+                    <li class="breadcrumb-item active">Szczegóły kategorii</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row margin-top-30">
+            <div class="col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
+                <dl class="dl-horizontal">
+                    <dt>ID kategorii</dt>
+                    <dd>{{ category.id }}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Nazwa kategorii</dt>
+                    <dd>{{ category.name }}</dd>
+                </dl>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-bordred table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 80px;"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for note in category.notes %}
+                        <tr>
+                            <td>{{ note.id }}</td>
+                            <td>{{ note.title }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

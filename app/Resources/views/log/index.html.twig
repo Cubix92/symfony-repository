@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% import "partials/macro/table.html.twig" as table %}
+
+{% block title %}RepoCode::Logi{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Logi systemowe</h1>
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Strona główna</a></li>
+                    <li class="breadcrumb-item active">Logi</li>
+                </ol>
+            </div>
+        </div>
+
+        {% if logs %}
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <table class="table table-bordred table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th style="width: 30%">Treść</th>
+                                <th>Admin</th>
+                                <th>Czas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for log in logs %}
+                            <tr>
+                                <td>{{ log.id }}</td>
+                                <td>{{ log.name }}</td>
+                                <td>{{ log.user }}</td>
+                                <td>{{ log.datetime }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        Żadne logi systemowe nie zostały jeszcze dodane.
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

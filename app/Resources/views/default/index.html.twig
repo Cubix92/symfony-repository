@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepoCode::Repozytorium{% endblock %}
+
+{% block description %}Strona z repozytorium{% endblock %}
+
+{% block navigation %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-xs btn-info pull-right" style="margin: 12px;" href="{{ path('category_index') }}">
+                Zarządzaj
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container copy-area">
+        <h1>Repozytorium</h1>
+        <div class="card">
+            <ul class="nav nav-tabs">
+                {% for category in categories %}
+                    <li {% if loop.first %}class="active"{% endif %} loop.first }>
+                        <a data-toggle="tab" aria-controls="{{ category.name }}" href="#{{ category.name }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+            <div class="tab-content">
+                {% for category in categories %}
+                <div id="{{ category.name }}" class="tab-pane fade in{% if loop.first %} active{% endif %}">
+                    {% for note in category.notes %}
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>{{ note.title }}</h3>
+                                </div>
+                                <div class="col-md-7">
+                                <textarea
+                                        onclick="copyToClipboard(this)"
+                                        spellcheck="false"
+                                        rows="{{ note.code|resize }}"
+                                    >{{ note.code }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="alert alert-info margin-top-20">
+                                Niestety nie znaleziono żadnych wpisów
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                {% endfor %}
+            </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function copyToClipboard(elem) {
+            elem.select();
+            // create hidden text element, if it doesn't already exist
+            var targetId = "_hiddenCopyText_";
+            var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+            var origSelectionStart, origSelectionEnd;
+            if (isInput) {
+                // can just use the original source element for the selection and copy
+                target = elem;
+                origSelectionStart = elem.selectionStart;
+                origSelectionEnd = elem.selectionEnd;
+            } else {
+                // must use a temporary form element for the selection and copy
+                target = document.getElementById(targetId);
+                if (!target) {
+                    var target = document.createElement("textarea");
+                    target.style.position = "absolute";
+                    target.style.left = "-9999px";
+                    target.style.top = "0";
+                    target.id = targetId;
+                    document.body.appendChild(target);
+                }
+                target.textContent = elem.textContent;
+            }
+            // select the content
+            var currentFocus = document.activeElement;
+            target.focus();
+            target.setSelectionRange(0, target.value.length);
+
+            // copy the selection
+            var succeed;
+            try {
+                succeed = document.execCommand("copy");
+            } catch (e) {
+                succeed = false;
+            }
+            // restore original focus
+            if (currentFocus && typeof currentFocus.focus === "function") {
+                currentFocus.focus();
+            }
+
+            if (isInput) {
+                // restore prior selection
+                elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+            } else {
+                // clear temporary content
+                target.textContent = "";
+            }
+            return succeed;
+        }
+
+        $('.btn-del').click(function(event) {
+            var confirm = window.confirm("Czy jesteś pewny, że chcesz usunąć wpis?");
+            if (confirm == false) {
+                event.preventDefault();
+            }
+        });
+    </script>
+    {% endblock %}

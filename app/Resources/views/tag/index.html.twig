@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% import "partials/macro/table.html.twig" as table %}
+
+{% block title %}RepoCode::Tagi{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% include 'partials/messages.html.twig' %}
+
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <h1>Lista tagów</h1>
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Strona główna</a></li>
+                    <li class="breadcrumb-item active">Tagi</li>
+                </ol>
+            </div>
+        </div>
+
+        {% if tags %}
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordred table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">{{ table.sort("Id", "id") }}</th>
+                                <th>{{ table.sort("Nazwa", "name") }}</th>
+                                {#<th style="width: 60px;">Szczegóły</th>#}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for tag in tags %}
+                            <tr>
+                                <td>{{ tag.id }}</td>
+                                <td>{{ tag.name }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{ table.pagination(page, total) }}
+        {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        Żaden tag nie został jeszcze dodany.
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
