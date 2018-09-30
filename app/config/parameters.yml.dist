@@ -2,22 +2,13 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host: mysql9.mydevil.net
-    database_port: 3306
-    database_name: m1076_repo
-    database_user: m1076_repo
-    database_password: Wr32RKPZ5hOmm4fdBqOq
-
-    logger_host: mysql9.mydevil.net
-    logger_port: 3306
-    logger_name: p1076_repo
-    logger_user: p1076_repo
-    logger_password: uKWn9FTLPnDAaH2d1yqm
-
+    database_host: <database_host>
+    database_port: null
+    database_name: <database_name>
+    database_user: <database_user>
+    database_password: <database_password>
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-
-    secret: 831d0fa8398b4d49eff2911d0af3f18b054a27e6
-    locale: pl
+    secret: <secret>
